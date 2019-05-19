@@ -1,24 +1,14 @@
 'use strict';
 
-document.getElementById("price").onblur = function () {
-    let tempPrice = +price.value;
-    price.innerText = tempPrice;
-    if (tempPrice < 0) {
-        document.getElementById('tip').innerText = `Please enter correct price`;
-        document.getElementById('price').classList.add('redOutline');
-    } else {
-        document.getElementById('price').classList.remove('redOutline');
-        document.getElementById('tip').innerText = ``;
-        let spanList = document.getElementById('spanList');
-        let spanNode = document.createElement('span');
-        spanNode.setAttribute('onclick', `removespan(this);`);
-        let textNode = document.createTextNode(`Текущая цена: ${tempPrice}`);
-        spanNode.appendChild(textNode);
-        spanList.appendChild(spanNode);
-        console.log(tempPrice);
-    }
-};
+let tabs = document.querySelectorAll('.tabs li');
 
-let removespan = function(span) {
-    span.parentNode.removeChild(span);
-};
+tabs.forEach(function(tab, index){
+    tab.addEventListener('click', function(){
+        let currentTabData = document.querySelector('.tab-content[data-tab-content="' + this.dataset.tabTrigger + '"]');
+
+        document.querySelector('.tabs-content li.is-open').classList.remove('is-open');
+        document.querySelector('.tabs li.active').classList.remove('active');
+        currentTabData.classList.add('is-open');
+        this.classList.add('active');
+    });
+});
